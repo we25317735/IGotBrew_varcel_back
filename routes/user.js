@@ -961,9 +961,15 @@ router.get('/:id', async function (req, res) {
   //   return res.json({ status: 'error', message: '存取會員資料失敗' })
   // }
 
+  // 取得使用者資料
   const user = await User.findByPk(id, {
     raw: true, // 只需要資料表中資料
   })
+
+  // 檢查使用者是否存在
+  if (!user) {
+    return res.status(404).json({ status: 'error', message: '使用者未找到' })
+  }
 
   // 不回傳密碼
   delete user.password
