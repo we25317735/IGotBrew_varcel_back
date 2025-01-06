@@ -47,6 +47,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }) //儲存圖片時執行 storage
 
+// (用於部屬時測試)
+router.post('/test', jsonModdleware, (req, res) => {
+  res.send('user 伺服器連線 ok !!!')
+})
+
 // 普通的 id 抓資料
 router.post('/', jsonModdleware, (req, res) => {
   const { id, name, email } = req.body
