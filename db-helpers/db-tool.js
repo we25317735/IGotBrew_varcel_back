@@ -50,6 +50,7 @@ export const getFindInSet = (value, dbColumn, isNumber = true) => {
 // and convert it to a number (since it comes as a string by default)
 export const getIdParam = (req) => {
   const id = req.params.id
+
   if (/^\d+$/.test(id)) {
     return Number.parseInt(id, 10)
   }
