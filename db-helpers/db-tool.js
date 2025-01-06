@@ -53,7 +53,7 @@ export const getIdParam = (req) => {
   if (/^\d+$/.test(id)) {
     return Number.parseInt(id, 10)
   }
-  throw new TypeError(`Invalid ':id' param: "${id}"`)
+  // throw new TypeError(`Invalid ':id' param: "${id}"`)
 }
 
 // sequelize use
