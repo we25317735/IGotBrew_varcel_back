@@ -13,6 +13,7 @@
 
 # 部屬時需移除
 .env
+db-helpers
 
 # misc
 .DS_Store
