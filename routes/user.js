@@ -48,8 +48,22 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }) //儲存圖片時執行 storage
 
 // (用於部屬時測試)
-router.get('/test', jsonModdleware, (req, res) => {
+router.get('/test', (req, res) => {
   res.send('user 伺服器連線 ok !!!')
+})
+
+// (用於部屬時是否連接到 SQL)
+router.get('/test', (req, res) => {
+  const query = 'SELECT * FROM user' // user 替換為你的資料表名稱
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('查詢失敗:', err.message)
+      res.status(500).send('伺服器錯誤')
+      return
+    }
+    res.json(results) // 直接回傳 JSON 資料
+  })
 })
 
 // 普通的 id 抓資料
