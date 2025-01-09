@@ -53,7 +53,7 @@ router.get('/test', (req, res) => {
 })
 
 // (用於部屬時是否連接到 SQL)
-router.get('/test', (req, res) => {
+router.get('/test-sql', (req, res) => {
   const query = 'SELECT * FROM user' // user 替換為你的資料表名稱
 
   connection.query(query, (err, results) => {
