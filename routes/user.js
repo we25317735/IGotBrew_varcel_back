@@ -47,6 +47,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }) //儲存圖片時執行 storage
 
+///////////////////////
+
+/* 用於部屬測試 */
+
 // (用於部屬時測試)
 router.get('/test', (req, res) => {
   res.send('user 伺服器連線 ok !!!')
@@ -71,6 +75,8 @@ router.get('/test-seq', async (req, res) => {
   const products = await User.findAll()
   res.json(products)
 })
+
+////////////////////
 
 // 普通的 id 抓資料
 router.post('/', jsonModdleware, (req, res) => {
