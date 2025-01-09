@@ -46,8 +46,14 @@ router.get('/test', (req, res) => {
 
 // (伺服器接sql測試)
 router.get('/test-sql', async (req, res) => {
-  const products = await product.findAll()
-  res.json(products)
+  try {
+    console.log(product) // 加入這一行檢查是否正確導入
+    const products = await product.findAll()
+    res.json(products)
+  } catch (error) {
+    console.error('查詢失敗:', error.message)
+    res.status(500).send('伺服器錯誤')
+  }
 })
 
 ////////////////////////////
