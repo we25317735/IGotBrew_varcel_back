@@ -3,6 +3,10 @@ import connection from '../db.js'
 import multer from 'multer'
 import path from 'path'
 
+// 以下測試
+import sequelize from '#configs/db.js'
+const { product } = sequelize.models
+
 const router = express.Router()
 
 const storage = multer.diskStorage({
@@ -22,6 +26,32 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
+
+/////////////////////////////
+/* 測試連線 */
+
+// (伺服器連線測試)
+router.get('/test', (req, res) => {
+  const query = 'SELECT * FROM product' // user 替換為你的資料表名稱
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('查詢失敗:', err.message)
+      res.status(500).send('伺服器錯誤')
+      return
+    }
+    res.json(results) // 直接回傳 JSON 資料
+  })
+})
+
+// (伺服器接sql測試)
+router.get('/test-sql', async (req, res) => {
+  const products = await product.findAll()
+  res.json(products)
+})
+
+////////////////////////////
+
 // http://localhost:3005/api/product
 router.get('/', (req, res) => {
   const page = parseInt(req.query.page) || 1
