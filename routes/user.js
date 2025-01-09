@@ -66,6 +66,12 @@ router.get('/test-sql', (req, res) => {
   })
 })
 
+// (用於部屬時是否連接到 sequelize)
+router.get('/test-seq', async (req, res) => {
+  const products = await User.findAll()
+  res.json(products)
+})
+
 // 普通的 id 抓資料
 router.post('/', jsonModdleware, (req, res) => {
   const { id, name, email } = req.body
