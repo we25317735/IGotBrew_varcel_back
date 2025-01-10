@@ -8,20 +8,24 @@ import jsonwebtoken from 'jsonwebtoken'
 // 存取`.env`設定檔案使用
 import 'dotenv/config.js'
 
+const jsonModdleware = express.json() // 接收資料的中間件
+
 // 定義安全的私鑰字串
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
-router.post('/', async function (req, res, next) {
+router.post('/', jsonModdleware, async function (req, res) {
   // providerData =  req.body
   console.log('google 登入請求: ', JSON.stringify(req.body))
+
+  const { displayName, email, uid, photoURL } = req.body
+  const google_uid = uid
+
+  console.log('dfghuji ', displayName)
 
   // 檢查從react來的資料
   if (!req.body.providerId || !req.body.uid) {
     return res.json({ status: 'error', message: '缺少google登入資料' })
   }
-
-  const { displayName, email, uid, photoURL } = req.body
-  const google_uid = uid
 
   // 以下流程:
   // 1. 先查詢資料庫是否有同google_uid的資料

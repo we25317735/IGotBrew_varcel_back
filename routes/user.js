@@ -505,12 +505,16 @@ router.post('/upload', upload.single('file'), (req, res) => {
 router.post('/coupon', (req, res) => {
   const { id } = req.body
 
+  console.log('dfghjk ', id)
+
   // user_coupon (pl) 和 coupon (p)
   const query = `
     SELECT p.*, pl.quantity
 FROM user_coupon pl
 JOIN coupon p ON pl.coupon_id = p.id
 WHERE pl.user_id = ?
+
+
   `
 
   connection.query(query, [id], (err, results) => {
